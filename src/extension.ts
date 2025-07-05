@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { WebviewProvider } from './webviewProvider';
+import { ClaudePseudoTerminal } from './pseudoterminal/ClaudePseudoTerminal';
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('ClaudeCodeHUB is now active!');
@@ -13,9 +14,18 @@ export function activate(context: vscode.ExtensionContext) {
         )
     );
     
+    // Command to open pseudo terminal
     context.subscriptions.push(
-        vscode.commands.registerCommand('claudeBridge.start', () => {
-            provider.startClaude();
+        vscode.commands.registerCommand('claudeBridge.openPseudoTerminal', () => {
+            const pty = new ClaudePseudoTerminal();
+            const terminal = vscode.window.createTerminal({
+                name: 'Claude',
+                pty
+            });
+            terminal.show();
+            
+            // Connect webview to pseudoterminal
+            provider.setPseudoTerminal(pty);
         })
     );
 }

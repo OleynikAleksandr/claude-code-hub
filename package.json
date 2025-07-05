@@ -2,7 +2,7 @@
   "name": "claude-code-hub",
   "displayName": "ClaudeCodeHUB",
   "description": "VS Code integration for Claude Code CLI",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.88.0"
   },
@@ -18,28 +18,13 @@
   },
   "homepage": "https://github.com/OleynikAleksandr/claude-code-hub#readme",
   "activationEvents": [],
-  "main": "./out/extension_v2.js",
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "claudeBridge.start",
-        "title": "Start Claude Bridge",
-        "icon": "$(play)"
-      },
-      {
-        "command": "claudeBridge.stop",
-        "title": "Stop Claude Bridge",
-        "icon": "$(stop)"
-      },
-      {
-        "command": "claudeBridge.openPanel",
-        "title": "Open Claude Bridge Panel",
-        "icon": "$(comment-discussion)"
-      },
-      {
-        "command": "claudeBridge.diagnose",
-        "title": "Claude Bridge: Diagnostics",
-        "icon": "$(pulse)"
+        "command": "claudeBridge.openPseudoTerminal",
+        "title": "Open Claude Pseudo Terminal",
+        "icon": "$(terminal)"
       }
     ],
     "viewsContainers": {
