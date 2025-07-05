@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Chat</title>
+    <link rel="stylesheet" href="${styleUri}">
+</head>
+<body>
+    <div id="terminal"></div>
+    <div id="input-area">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button id="send-button">Send</button>
+    </div>
+    
+    <script>
+        const vscode = acquireVsCodeApi();
+        
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const terminal = document.getElementById('terminal');
+        
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                vscode.postMessage({ type: 'sendMessage', text: message });
+                messageInput.value = '';
+            }
+        }
+        
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        window.addEventListener('message', event => {
+            const message = event.data;
+            if (message.type === 'claudeOutput') {
+                const outputDiv = document.createElement('div');
+                outputDiv.className = 'output-line';
+                outputDiv.textContent = message.text;
+                terminal.appendChild(outputDiv);
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
