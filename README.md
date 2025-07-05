@@ -1,23 +1,176 @@
-# ClaudeCodeHUB
+# Claude Code Bridge v2 🚀
 
-VS Code integration for Claude Code CLI.
+**Advanced VS Code Extension for Claude Code Integration with Terminal Support**
 
-## Features
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](./CHANGELOG.md)
+[![VS Code](https://img.shields.io/badge/VS%20Code-1.88%2B-green.svg)](https://code.visualstudio.com/)
+[![License](https://img.shields.io/badge/license-MIT-orange.svg)](./LICENSE)
 
-- Chat interface for Claude directly in VS Code
-- WebView panel with terminal output
-- Easy message sending to Claude
+## 🌟 Возможности
 
-## Requirements
+### 🔄 Терминальная интеграция
+- **Shell Integration API**: Использует VS Code 1.88+ для прямой интеграции с терминалом
+- **Real-time вывод**: Чтение вывода Claude в реальном времени
+- **Двусторонняя связь**: Отправка команд и получение ответов
+- **Автоматический fallback**: Поддержка старых версий VS Code
 
-- Claude Code CLI must be installed on your system
+### 🎯 Продвинутый интерфейс
+- **Индикаторы состояния**: Визуальное отображение статуса интеграции
+- **Диагностическая система**: Встроенная отладка и мониторинг
+- **Контекстные элементы управления**: Умные кнопки и поля ввода
+- **Современный дизайн**: Нативная интеграция с темами VS Code
 
-## Usage
+### 🏗️ Модульная архитектура
+- **Strategy Pattern**: Автоматический выбор оптимального способа взаимодействия
+- **Кластерная структура**: Независимые модули с четкими интерфейсами
+- **Расширяемость**: Легкое добавление новых функций
+- **Тестируемость**: Комплексное покрытие тестами
 
-1. Click on the Claude Bridge icon in the Activity Bar
-2. Use "Start Claude Bridge" command from the Command Palette
-3. Type your messages in the input field and press Send
+## 🚀 Быстрый старт
 
-## MVP Version
+### Требования
+- **VS Code 1.88+** (рекомендуется для полной функциональности)
+- **Claude CLI** установлен и доступен в PATH
+- **Shell Integration** включен в VS Code
 
-This is the MVP version with basic functionality.
+### Установка
+1. Установите VSIX пакет в VS Code
+2. Откройте панель Claude Bridge из Activity Bar
+3. Нажмите "Start Claude" для инициализации
+4. Начните общение с Claude Code!
+
+### Первое использование
+```bash
+# Проверьте доступность Claude CLI
+claude --version
+
+# Откройте VS Code в директории проекта
+code .
+
+# Откройте панель Claude Bridge и нажмите "Start Claude"
+```
+
+## 🔧 Архитектура
+
+### Компоненты системы
+```
+┌─────────────────────────────────────────────┐
+│              WebView UI                     │
+│  ┌─────────────┐ ┌─────────────────────────┐ │
+│  │ Status Bar  │ │    Chat Interface       │ │
+│  │ Controls    │ │    Diagnostics         │ │
+│  └─────────────┘ └─────────────────────────┘ │
+└─────────────────────────────────────────────┘
+                        │
+┌─────────────────────────────────────────────┐
+│        Terminal Integration Module          │
+│  ┌─────────────────┐ ┌─────────────────────┐ │
+│  │ Shell Integration│ │   Send Text        │ │
+│  │ Strategy (1.88+) │ │ Strategy (Fallback) │ │
+│  └─────────────────┘ └─────────────────────┘ │
+└─────────────────────────────────────────────┘
+                        │
+┌─────────────────────────────────────────────┐
+│           VS Code Terminal                  │
+│              Claude CLI                     │
+└─────────────────────────────────────────────┘
+```
+
+### Стратегии взаимодействия
+1. **ShellIntegrationStrategy** (Приоритет: 100)
+   - Полная двусторонняя коммуникация
+   - Real-time потоки вывода
+   - Отслеживание выполнения команд
+
+2. **SendTextStrategy** (Приоритет: 10)
+   - Базовая отправка команд
+   - Совместимость со старыми версиями
+   - Ограниченный мониторинг
+
+## 📊 Мониторинг и диагностика
+
+### Статусы системы
+- 🟢 **Active**: Claude готов к работе
+- 🟡 **Initializing**: Настройка интеграции
+- 🔴 **Error**: Обнаружена проблема
+
+### Диагностическая информация
+- Текущая стратегия взаимодействия
+- Состояние Shell Integration
+- Здоровье терминала
+- Совместимость системы
+- Рекомендации по устранению проблем
+
+## 🧪 Тестирование
+
+```bash
+# Компиляция
+npm run compile
+
+# Запуск тестов
+npm test
+
+# Режим разработки
+npm run watch
+```
+
+## 📚 Документация
+
+- [📖 README_v2.md](./README_v2.md) - Полная документация
+- [💡 INSPIRATION.md](./INSPIRATION.md) - Источники вдохновения
+- [📝 CHANGELOG.md](./CHANGELOG.md) - История изменений
+
+## 🛠️ Разработка
+
+### Сборка из исходников
+```bash
+git clone <repository-url>
+cd claude-code-hub
+npm install
+npm run compile
+npm run package
+```
+
+### Структура проекта
+```
+src/
+├── interfaces/           # TypeScript интерфейсы
+├── terminal/            # Модули терминальной интеграции
+│   ├── strategies/      # Стратегии взаимодействия
+│   ├── TerminalIntegrationModule.ts
+│   └── ShellIntegrationManager.ts
+├── webviewProvider_v2.ts
+├── extension_v2.ts
+└── test/               # Тесты
+```
+
+## 🐛 Устранение проблем
+
+### Частые проблемы
+- **Shell Integration недоступен**: Обновите VS Code до 1.88+
+- **Claude команда не найдена**: Проверьте установку Claude CLI
+- **Проблемы подключения**: Используйте кнопку "Diagnostics"
+
+### Получение помощи
+1. Используйте встроенную диагностику
+2. Проверьте консоль разработчика VS Code
+3. Просмотрите вывод терминала
+4. Создайте issue с диагностической информацией
+
+## 🤝 Вклад в проект
+
+Мы приветствуем вклад сообщества! Области для улучшения:
+- Дополнительные стратегии коммуникации
+- Механизмы восстановления после ошибок
+- Оптимизация производительности
+- Улучшения UI/UX
+
+## 📄 Лицензия
+
+Этот проект является частью инициативы ClaudeCodeBridge. См. основной репозиторий для информации о лицензии.
+
+---
+
+**Сделано с ❤️ для сообщества VS Code и Claude**
+
+*Claude Code Bridge v2 - Bringing AI-powered development directly to your IDE*

@@ -2,20 +2,44 @@
   "name": "claude-code-hub",
   "displayName": "ClaudeCodeHUB",
   "description": "VS Code integration for Claude Code CLI",
-  "version": "0.0.1",
+  "version": "0.1.7",
   "engines": {
-    "vscode": "^1.101.0"
+    "vscode": "^1.88.0"
   },
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OleynikAleksandr/claude-code-hub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OleynikAleksandr/claude-code-hub/issues"
+  },
+  "homepage": "https://github.com/OleynikAleksandr/claude-code-hub#readme",
   "activationEvents": [],
-  "main": "./out/extension.js",
+  "main": "./out/extension_v2.js",
   "contributes": {
     "commands": [
       {
         "command": "claudeBridge.start",
-        "title": "Start Claude Bridge"
+        "title": "Start Claude Bridge",
+        "icon": "$(play)"
+      },
+      {
+        "command": "claudeBridge.stop",
+        "title": "Stop Claude Bridge",
+        "icon": "$(stop)"
+      },
+      {
+        "command": "claudeBridge.openPanel",
+        "title": "Open Claude Bridge Panel",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "claudeBridge.diagnose",
+        "title": "Claude Bridge: Diagnostics",
+        "icon": "$(pulse)"
       }
     ],
     "viewsContainers": {
@@ -23,7 +47,7 @@
         {
           "id": "claude-bridge",
           "title": "Claude Bridge",
-          "icon": "resources/icon.png"
+          "icon": "resources/icon.svg"
         }
       ]
     },
@@ -47,7 +71,7 @@
     "package": "vsce package --out ./bin/"
   },
   "devDependencies": {
-    "@types/vscode": "^1.101.0",
+    "@types/vscode": "^1.88.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.31.1",

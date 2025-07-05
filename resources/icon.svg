@@ -1,0 +1,24 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Верхний ряд: увеличенные буквы CC -->
+  <text
+    x="32" y="18"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-family="Segoe UI, sans-serif"
+    font-size="32"
+    font-weight="bold"
+    fill="#808080">
+    CC
+  </text>
+  <!-- Нижний ряд: буквы UI -->
+  <text
+    x="32" y="50"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-family="Segoe UI, sans-serif"
+    font-size="36"
+    font-weight="bold"
+    fill="#808080">
+    UI
+  </text>
+</svg>
