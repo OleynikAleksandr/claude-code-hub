@@ -9,6 +9,26 @@ body {
     font-family: var(--vscode-font-family);
 }
 
+#session-status {
+    padding: 8px 12px;
+    background-color: var(--vscode-statusBar-background);
+    color: var(--vscode-statusBar-foreground);
+    border-bottom: 1px solid var(--vscode-panel-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    min-height: 20px;
+}
+
+#status-indicator {
+    font-size: 14px;
+}
+
+#status-text {
+    font-weight: 500;
+}
+
 #terminal {
     flex: 1;
     overflow-y: auto;
@@ -83,4 +103,31 @@ body {
 
 #send-button:active {
     background-color: var(--vscode-button-background);
+}
+
+#new-session-button {
+    padding: 8px 16px;
+    background-color: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+    border: 1px solid var(--vscode-button-border);
+    cursor: pointer;
+    font-family: var(--vscode-font-family);
+    font-size: var(--vscode-font-size);
+}
+
+#new-session-button:hover {
+    background-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+#new-session-button:active {
+    background-color: var(--vscode-button-secondaryBackground);
+}
+
+.session-message {
+    background-color: var(--vscode-notifications-background);
+    border: 1px solid var(--vscode-notifications-border);
+    color: var(--vscode-notifications-foreground);
+    margin: 5px 0;
+    text-align: center;
+    font-style: italic;
 }

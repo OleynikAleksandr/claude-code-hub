@@ -7,10 +7,15 @@
     <link rel="stylesheet" href="${styleUri}">
 </head>
 <body>
+    <div id="session-status">
+        <span id="status-indicator">⚪</span>
+        <span id="status-text">Click "New Session" to start</span>
+    </div>
     <div id="terminal"></div>
     <div id="input-area">
         <input type="text" id="message-input" placeholder="Type your message...">
         <button id="send-button">Send</button>
+        <button id="new-session-button">New Session</button>
     </div>
     
     <script>
@@ -18,7 +23,16 @@
         
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
+        const newSessionButton = document.getElementById('new-session-button');
         const terminal = document.getElementById('terminal');
+        const statusIndicator = document.getElementById('status-indicator');
+        const statusText = document.getElementById('status-text');
+        
+        // Функция для обновления статуса сессии
+        function updateSessionStatus(status, text) {
+            statusIndicator.textContent = status;
+            statusText.textContent = text;
+        }
         
         function sendMessage() {
             const message = messageInput.value.trim();
@@ -29,13 +43,36 @@
                 userDiv.textContent = 'You: ' + message;
                 terminal.appendChild(userDiv);
                 
+                // Обновляем статус - отправляем сообщение
+                updateSessionStatus('🟡', 'Sending message...');
+                
                 vscode.postMessage({ type: 'sendMessage', text: message });
                 messageInput.value = '';
                 terminal.scrollTop = terminal.scrollHeight;
             }
         }
         
+        function startNewSession() {
+            // Очищаем чат
+            terminal.innerHTML = '';
+            
+            // Обновляем статус
+            updateSessionStatus('🔄', 'Starting new session...');
+            
+            // Показываем индикатор новой сессии
+            const sessionDiv = document.createElement('div');
+            sessionDiv.className = 'message session-message';
+            sessionDiv.textContent = '🔄 Starting new session...';
+            terminal.appendChild(sessionDiv);
+            
+            // Отправляем команду на создание новой сессии
+            vscode.postMessage({ type: 'newSession' });
+            
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+        
         sendButton.addEventListener('click', sendMessage);
+        newSessionButton.addEventListener('click', startNewSession);
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendMessage();
@@ -50,6 +87,30 @@
                 outputDiv.textContent = 'Claude: ' + message.text;
                 terminal.appendChild(outputDiv);
                 terminal.scrollTop = terminal.scrollHeight;
+                
+                // Обновляем статус - получили ответ
+                updateSessionStatus('🟢', 'Session active');
+                
+            } else if (message.type === 'sessionStatus') {
+                const statusDiv = document.createElement('div');
+                statusDiv.className = 'message session-message';
+                statusDiv.textContent = '✅ ' + message.text;
+                terminal.appendChild(statusDiv);
+                terminal.scrollTop = terminal.scrollHeight;
+                
+                // Обновляем статус - сессия готова
+                updateSessionStatus('🟢', 'Session active');
+                
+            } else if (message.type === 'sessionError') {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'message session-message';
+                errorDiv.style.color = 'var(--vscode-errorForeground)';
+                errorDiv.textContent = '❌ ' + message.text;
+                terminal.appendChild(errorDiv);
+                terminal.scrollTop = terminal.scrollHeight;
+                
+                // Обновляем статус - ошибка
+                updateSessionStatus('🔴', 'Session error');
             }
         });
     </script>

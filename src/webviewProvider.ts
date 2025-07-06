@@ -33,6 +33,9 @@ export class WebviewProvider implements vscode.WebviewViewProvider {
                     case 'sendMessage':
                         this.sendMessageToClaude(message.text);
                         break;
+                    case 'newSession':
+                        this.startNewSession();
+                        break;
                 }
             }
         );
@@ -49,12 +52,29 @@ export class WebviewProvider implements vscode.WebviewViewProvider {
             this._view?.webview.postMessage({ type: 'claudeOutput', text: data });
         });
         
+        // Listen to session status updates
+        pty.onSessionError(error => {
+            this._view?.webview.postMessage({ type: 'sessionError', text: error });
+        });
+        
         vscode.window.showInformationMessage('Claude Bridge connected!');
     }
     
     private sendMessageToClaude(message: string) {
         if (this.pseudoTerminal) {
             this.pseudoTerminal.sendMessage(message);
+        } else {
+            vscode.window.showWarningMessage('Pseudo terminal not connected. Use "Open Pseudo Terminal" command first.');
+        }
+    }
+    
+    private startNewSession() {
+        if (this.pseudoTerminal) {
+            this.pseudoTerminal.startNewSession();
+            this._view?.webview.postMessage({ 
+                type: 'sessionStatus', 
+                text: 'New session started successfully' 
+            });
         } else {
             vscode.window.showWarningMessage('Pseudo terminal not connected. Use "Open Pseudo Terminal" command first.');
         }

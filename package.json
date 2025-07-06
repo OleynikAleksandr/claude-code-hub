@@ -2,7 +2,7 @@
   "name": "claude-code-hub",
   "displayName": "ClaudeCodeHUB",
   "description": "VS Code integration for Claude Code CLI",
-  "version": "0.4.2",
+  "version": "0.4.8",
   "engines": {
     "vscode": "^1.88.0"
   },
