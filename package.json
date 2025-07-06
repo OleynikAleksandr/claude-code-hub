@@ -2,7 +2,7 @@
   "name": "claude-code-hub",
   "displayName": "ClaudeCodeHUB",
   "description": "VS Code integration for Claude Code CLI",
-  "version": "0.2.0",
+  "version": "0.4.2",
   "engines": {
     "vscode": "^1.88.0"
   },
@@ -21,6 +21,11 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "claudeBridge.open",
+        "title": "Claude Code HUB: Open",
+        "icon": "$(comment-discussion)"
+      },
       {
         "command": "claudeBridge.openPseudoTerminal",
         "title": "Open Claude Pseudo Terminal",

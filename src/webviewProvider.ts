@@ -6,6 +6,8 @@ export class WebviewProvider implements vscode.WebviewViewProvider {
     
     private _view?: vscode.WebviewView;
     private pseudoTerminal?: ClaudePseudoTerminal;
+    private _onViewReady = new vscode.EventEmitter<void>();
+    public readonly onViewReady = this._onViewReady.event;
     
     constructor(
         private readonly _extensionUri: vscode.Uri
@@ -34,17 +36,20 @@ export class WebviewProvider implements vscode.WebviewViewProvider {
                 }
             }
         );
+        
+        // Вызываем событие когда WebView готов
+        this._onViewReady.fire();
     }
     
     public setPseudoTerminal(pty: ClaudePseudoTerminal) {
         this.pseudoTerminal = pty;
         
-        // Listen to terminal output and send to webview
-        pty.onDidWrite(data => {
+        // Listen to Claude's actual output (filtered)
+        pty.onClaudeOutput(data => {
             this._view?.webview.postMessage({ type: 'claudeOutput', text: data });
         });
         
-        vscode.window.showInformationMessage('Claude Bridge connected to pseudo terminal!');
+        vscode.window.showInformationMessage('Claude Bridge connected!');
     }
     
     private sendMessageToClaude(message: string) {

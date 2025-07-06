@@ -23,8 +23,15 @@
         function sendMessage() {
             const message = messageInput.value.trim();
             if (message) {
+                // Показываем сообщение пользователя в чате
+                const userDiv = document.createElement('div');
+                userDiv.className = 'message user-message';
+                userDiv.textContent = 'You: ' + message;
+                terminal.appendChild(userDiv);
+                
                 vscode.postMessage({ type: 'sendMessage', text: message });
                 messageInput.value = '';
+                terminal.scrollTop = terminal.scrollHeight;
             }
         }
         
@@ -39,8 +46,8 @@
             const message = event.data;
             if (message.type === 'claudeOutput') {
                 const outputDiv = document.createElement('div');
-                outputDiv.className = 'output-line';
-                outputDiv.textContent = message.text;
+                outputDiv.className = 'message claude-message';
+                outputDiv.textContent = 'Claude: ' + message.text;
                 terminal.appendChild(outputDiv);
                 terminal.scrollTop = terminal.scrollHeight;
             }

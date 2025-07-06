@@ -25,6 +25,25 @@ body {
     word-wrap: break-word;
 }
 
+.message {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: var(--vscode-editor-selectionBackground);
+    margin-left: 20%;
+    text-align: right;
+}
+
+.claude-message {
+    background-color: var(--vscode-editor-inactiveSelectionBackground);
+    margin-right: 20%;
+}
+
 #input-area {
     padding: 10px;
     border-top: 1px solid var(--vscode-panel-border);
